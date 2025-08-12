@@ -9,7 +9,7 @@ body {
     font-family: "Poppins", sans-serif;
     line-height: 1.6;
     color: #ffffff;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #304399 0%, #380869 100%);
     min-height: 100vh;
 }
 
@@ -98,7 +98,7 @@ body {
     align-items: center;
     justify-content: center;
     text-align: center;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #304399 0%, #380869 100%);
     position: relative;
     overflow: hidden;
 }
@@ -138,7 +138,7 @@ body {
     font-size: 4rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    background: linear-gradient(135deg, #0b0615, #057f95);
+    background: linear-gradient(135deg, #ffffff, #057f95);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
