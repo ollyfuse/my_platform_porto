@@ -173,7 +173,7 @@ body {
 .btn {
     display: inline-block;
     padding: 12px 30px;
-    border-radius: 10px;
+    border-radius: 50px;
     text-decoration: none;
     font-weight: 600;
     font-size: 1rem;
