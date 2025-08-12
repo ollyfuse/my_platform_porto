@@ -173,7 +173,7 @@ body {
 .btn {
     display: inline-block;
     padding: 12px 30px;
-    border-radius: 50px;
+    border-radius: 10px;
     text-decoration: none;
     font-weight: 600;
     font-size: 1rem;
@@ -183,7 +183,7 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(135deg, #8b5cf6, #06b6d4);
+    background: linear-gradient(135deg, #8b5cf6, #044753);
     color: white;
     box-shadow: 0 10px 30px rgba(139, 92, 246, 0.3);
 }
