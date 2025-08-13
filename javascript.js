@@ -43,8 +43,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Smooth scrolling for navigation links
+    // Enhanced smooth scrolling for navigation links
     const navLinks = document.querySelectorAll('.nav-link');
+    const navbar = document.querySelector('.navbar');
+    const navbarHeight = navbar ? navbar.offsetHeight : 80;
+
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
@@ -52,22 +55,76 @@ document.addEventListener('DOMContentLoaded', function() {
             const targetSection = document.querySelector(targetId);
 
             if (targetSection) {
-                targetSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                // Calculate the exact position accounting for navbar height
+                const targetPosition = targetSection.offsetTop - navbarHeight - 20; // 20px extra padding
+
+                // Enhanced smooth scroll with custom easing
+                smoothScrollTo(targetPosition, 1000); // 1 second duration
             }
 
             // Close mobile menu if open
-            if (navMenu.classList.contains('active')) {
+            if (navMenu && navMenu.classList.contains('active')) {
                 hamburger.classList.remove('active');
                 navMenu.classList.remove('active');
             }
 
-            // Update active link
-            navLinks.forEach(navLink => navLink.classList.remove('active'));
+            // Update active link with smooth transition
+            navLinks.forEach(navLink => {
+                navLink.classList.remove('active');
+                navLink.style.transition = 'color 0.3s ease';
+            });
             this.classList.add('active');
         });
+    });
+
+    // Custom smooth scroll function with easing
+    function smoothScrollTo(targetPosition, duration) {
+        const startPosition = window.pageYOffset;
+        const distance = targetPosition - startPosition;
+        let startTime = null;
+
+        function animation(currentTime) {
+            if (startTime === null) startTime = currentTime;
+            const timeElapsed = currentTime - startTime;
+            const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
+            window.scrollTo(0, run);
+            if (timeElapsed < duration) requestAnimationFrame(animation);
+        }
+
+        // Easing function for smooth animation
+        function easeInOutCubic(t, b, c, d) {
+            t /= d / 2;
+            if (t < 1) return c / 2 * t * t * t + b;
+            t -= 2;
+            return c / 2 * (t * t * t + 2) + b;
+        }
+
+        requestAnimationFrame(animation);
+    }
+
+    // Apply smooth scrolling to all internal links
+    const allInternalLinks = document.querySelectorAll('a[href^="#"]');
+    allInternalLinks.forEach(link => {
+        // Skip if it's already a nav-link (already handled above)
+        if (!link.classList.contains('nav-link')) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+
+                if (targetSection) {
+                    const targetPosition = targetSection.offsetTop - navbarHeight - 20;
+                    smoothScrollTo(targetPosition, 1000);
+
+                    // Update active nav link
+                    const correspondingNavLink = document.querySelector(`.nav-link[href="${targetId}"]`);
+                    if (correspondingNavLink) {
+                        navLinks.forEach(navLink => navLink.classList.remove('active'));
+                        correspondingNavLink.classList.add('active');
+                    }
+                }
+            });
+        }
     });
 
     // Project filter functionality
@@ -118,27 +175,66 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Scroll-based navigation highlighting
+    // Scroll progress indicator
+    const scrollProgress = document.getElementById('scroll-progress');
+
+    // Enhanced scroll-based navigation highlighting and progress
+    let isScrolling = false;
+
     window.addEventListener('scroll', () => {
+        if (!isScrolling) {
+            window.requestAnimationFrame(() => {
+                updateActiveNavLink();
+                updateScrollProgress();
+                isScrolling = false;
+            });
+            isScrolling = true;
+        }
+    });
+
+    function updateScrollProgress() {
+        if (scrollProgress) {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            scrollProgress.style.width = scrollPercent + '%';
+        }
+    }
+
+    function updateActiveNavLink() {
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('.nav-link');
+        const scrollPosition = window.scrollY + navbarHeight + 50; // Account for navbar and some padding
 
         let current = '';
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (scrollY >= (sectionTop - 200)) {
+            const sectionBottom = sectionTop + section.offsetHeight;
+
+            // Check if the section is currently in view
+            if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
                 current = section.getAttribute('id');
             }
         });
 
+        // Handle the case when we're at the very top
+        if (window.scrollY < 100) {
+            current = 'home';
+        }
+
+        // Update active states with smooth transitions
         navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === '#' + current) {
+            const isActive = link.getAttribute('href') === '#' + current;
+
+            if (isActive && !link.classList.contains('active')) {
+                // Remove active from all links first
+                navLinks.forEach(navLink => navLink.classList.remove('active'));
+                // Add active to current link
                 link.classList.add('active');
             }
         });
-    });
+    }
 
     // Navbar background on scroll
     window.addEventListener('scroll', () => {
@@ -185,5 +281,31 @@ document.addEventListener('DOMContentLoaded', function() {
     if (skillsSection) {
         observer.observe(skillsSection);
     }
+
+    // Section fade-in animation on scroll
+    const sections = document.querySelectorAll('section:not(#home)'); // Exclude hero section
+
+    // Add fade-in class initially
+    sections.forEach(section => {
+        section.classList.add('fade-in');
+    });
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    sections.forEach(section => {
+        sectionObserver.observe(section);
+    });
+
+    // Initialize scroll progress on page load
+    updateScrollProgress();
 });
 
