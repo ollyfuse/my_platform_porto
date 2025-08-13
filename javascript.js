@@ -1,5 +1,37 @@
 // Navigation functionality
 document.addEventListener('DOMContentLoaded', function() {
+    // Theme toggle functionality
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const body = document.body;
+
+    // Check for saved theme preference or default to 'light'
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    body.setAttribute('data-theme', currentTheme);
+
+    // Update icon based on current theme
+    updateThemeIcon(currentTheme);
+
+    if (themeToggle) {
+        themeToggle.addEventListener('click', function() {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+    }
+
+    function updateThemeIcon(theme) {
+        if (themeIcon) {
+            if (theme === 'dark') {
+                themeIcon.className = 'fas fa-sun';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+            }
+        }
+    }
     // Mobile navigation toggle
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('nav-menu');
@@ -111,10 +143,20 @@ document.addEventListener('DOMContentLoaded', function() {
     // Navbar background on scroll
     window.addEventListener('scroll', () => {
         const navbar = document.querySelector('.navbar');
+        const currentTheme = body.getAttribute('data-theme') || 'light';
+
         if (window.scrollY > 100) {
-            navbar.style.background = 'rgba(52, 53, 57, 0.98)';
+            if (currentTheme === 'dark') {
+                navbar.style.background = 'rgba(31, 41, 55, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(52, 53, 57, 0.98)';
+            }
         } else {
-            navbar.style.background = 'rgba(52, 53, 57, 0.95)';
+            if (currentTheme === 'dark') {
+                navbar.style.background = 'rgba(31, 41, 55, 0.95)';
+            } else {
+                navbar.style.background = 'rgba(52, 53, 57, 0.95)';
+            }
         }
     });
 
