@@ -347,10 +347,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const chatMessages = document.getElementById('chatMessages');
     const agentSelect = document.getElementById('agentSelect');
 
-    // API endpoint - use environment variable or fallback
+    // API endpoint - use Netlify functions in production
     const API_BASE = window.location.hostname === 'localhost' 
         ? 'http://localhost:8000' 
-        : 'https://your-backend-url.railway.app';
+        : '/.netlify/functions';
 
     // Toggle chat widget
     chatToggle.addEventListener('click', () => {
