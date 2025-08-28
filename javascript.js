@@ -402,5 +402,80 @@ document.addEventListener('DOMContentLoaded', function() {
         const agentName = agentSelect.options[agentSelect.selectedIndex].text;
         addMessage(`Switched to ${agentName}. How can I help you?`, 'bot');
     });
+
+    // Reflection Journal Functionality
+    const journalText = document.getElementById('journalText');
+    const addReflectionBtn = document.getElementById('addReflection');
+    const journalEntries = document.getElementById('journalEntries');
+
+    // Load saved reflections from localStorage
+    loadReflections();
+
+    addReflectionBtn.addEventListener('click', addReflection);
+    journalText.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' && e.ctrlKey) {
+            addReflection();
+        }
+    });
+
+    function addReflection() {
+        const text = journalText.value.trim();
+        if (!text) return;
+
+        const reflection = {
+            id: Date.now(),
+            content: text,
+            date: new Date().toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            })
+        };
+
+        // Add to DOM
+        const entryDiv = createReflectionEntry(reflection);
+        journalEntries.insertBefore(entryDiv, journalEntries.firstChild);
+
+        // Save to localStorage
+        saveReflection(reflection);
+
+        // Clear input
+        journalText.value = '';
+        
+        // Scroll to top of entries
+        journalEntries.scrollTop = 0;
+    }
+
+    function createReflectionEntry(reflection) {
+        const entryDiv = document.createElement('div');
+        entryDiv.className = 'journal-entry';
+        entryDiv.innerHTML = `
+            <div class="entry-date">${reflection.date}</div>
+            <div class="entry-content">${reflection.content}</div>
+        `;
+        return entryDiv;
+    }
+
+    function saveReflection(reflection) {
+        const reflections = JSON.parse(localStorage.getItem('reflections') || '[]');
+        reflections.unshift(reflection);
+        // Keep only last 50 reflections
+        if (reflections.length > 50) reflections.pop();
+        localStorage.setItem('reflections', JSON.stringify(reflections));
+    }
+
+    function loadReflections() {
+        const reflections = JSON.parse(localStorage.getItem('reflections') || '[]');
+        // Clear default entry if we have saved reflections
+        if (reflections.length > 0) {
+            journalEntries.innerHTML = '';
+        }
+        reflections.forEach(reflection => {
+            const entryDiv = createReflectionEntry(reflection);
+            journalEntries.appendChild(entryDiv);
+        });
+    }
 });
 
