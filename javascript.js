@@ -307,5 +307,100 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize scroll progress on page load
     updateScrollProgress();
+
+    // Chat Widget Functionality
+    const chatToggle = document.getElementById('chatToggle');
+    const chatWidget = document.getElementById('chatWidget');
+    const chatClose = document.getElementById('chatClose');
+    const chatInput = document.getElementById('chatInput');
+    const chatSend = document.getElementById('chatSend');
+    const chatMessages = document.getElementById('chatMessages');
+    const agentSelect = document.getElementById('agentSelect');
+
+    // API endpoint - change this to your deployed backend URL
+    const API_BASE = 'http://localhost:8000';
+
+    // Toggle chat widget
+    chatToggle.addEventListener('click', () => {
+        chatWidget.classList.toggle('active');
+        if (chatWidget.classList.contains('active')) {
+            chatInput.focus();
+            if (chatMessages.children.length === 0) {
+                addMessage('Hello! I\'m Olivier\'s AI assistant. How can I help you today?', 'bot');
+            }
+        }
+    });
+
+    chatClose.addEventListener('click', () => {
+        chatWidget.classList.remove('active');
+    });
+
+    // Send message function
+    async function sendMessage() {
+        const message = chatInput.value.trim();
+        if (!message) return;
+
+        addMessage(message, 'user');
+        chatInput.value = '';
+        
+        // Show typing indicator
+        const typingMsg = addMessage('Thinking...', 'bot');
+        
+        try {
+            const response = await fetch(`${API_BASE}/api/chat`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: message,
+                    agent_type: agentSelect.value
+                })
+            });
+            
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            
+            const data = await response.json();
+            
+            // Remove typing indicator
+            typingMsg.remove();
+            
+            // Add bot response
+            addMessage(data.response, 'bot');
+            
+        } catch (error) {
+            console.error('Chat error:', error);
+            typingMsg.remove();
+            addMessage('Sorry, I\'m having trouble connecting right now. Please try again later or contact me directly at cyotero26@gmail.com', 'bot');
+        }
+    }
+
+    // Add message to chat
+    function addMessage(text, sender) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `message ${sender}`;
+        messageDiv.textContent = text;
+        chatMessages.appendChild(messageDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        return messageDiv;
+    }
+
+    // Send message on button click
+    chatSend.addEventListener('click', sendMessage);
+
+    // Send message on Enter key
+    chatInput.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+            sendMessage();
+        }
+    });
+
+    // Agent selection change
+    agentSelect.addEventListener('change', () => {
+        const agentName = agentSelect.options[agentSelect.selectedIndex].text;
+        addMessage(`Switched to ${agentName}. How can I help you?`, 'bot');
+    });
 });
 

@@ -418,6 +418,32 @@
         </footer>
     </div>
 
+    <!-- AI Assistant Chat Widget -->
+    <div class="chat-widget" id="chatWidget">
+        <div class="chat-header">
+            <h4>AI Assistant</h4>
+            <div class="agent-selector">
+                <select id="agentSelect">
+                    <option value="chat">Portfolio Q&A</option>
+                    <option value="guest">Schedule Meeting</option>
+                    <option value="planning">Daily Planning</option>
+                    <option value="project">Project Help</option>
+                </select>
+            </div>
+            <button class="chat-close" id="chatClose">×</button>
+        </div>
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Ask me anything...">
+            <button id="chatSend">Send</button>
+        </div>
+    </div>
+    
+    <!-- Chat Toggle Button -->
+    <button class="chat-toggle" id="chatToggle">
+        <i class="fas fa-robot"></i>
+    </button>
+
     <script src="./javascript.js"></script>
 </body>
 </html>
