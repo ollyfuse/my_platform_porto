@@ -582,7 +582,7 @@ section.fade-in.visible {
 
 .section-description {
     text-align: center;
-    color: var(--text-tertiary);
+    color: var(--text-tery);
     font-size: 1.1rem;
     margin-bottom: 2rem;
     max-width: 600px;
@@ -1102,6 +1102,52 @@ section.fade-in.visible {
 .form-group textarea {
     resize: vertical;
     min-height: 120px;
+}
+
+.recaptcha-container {
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0;
+}
+
+.g-recaptcha {
+    transform: scale(0.9);
+    transform-origin: center;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.form-message {
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin: 15px 0;
+    font-weight: 500;
+    text-align: center;
+    animation: slideIn 0.3s ease;
+}
+
+.form-message.success {
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border: 1px solid #059669;
+}
+
+.form-message.error {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    border: 1px solid #dc2626;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Footer */

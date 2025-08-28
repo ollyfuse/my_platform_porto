@@ -152,6 +152,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Contact form handling
     const contactForm = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -164,15 +166,43 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Basic validation
             if (!email || !subject || !message) {
-                alert('Please fill in all fields');
+                showFormMessage('Please fill in all fields', 'error');
                 return;
             }
 
-            // Here you would typically send the form data to a server
-            // For now, we'll just show a success message
-            alert('Thank you for your message! I\'ll get back to you soon.');
-            this.reset();
+            // reCAPTCHA validation
+            const recaptchaResponse = grecaptcha.getResponse();
+            if (!recaptchaResponse) {
+                showFormMessage('Please complete the reCAPTCHA verification', 'error');
+                return;
+            }
+
+            // Disable submit button
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+
+            // Simulate form submission
+            setTimeout(() => {
+                showFormMessage('Thank you for your message! I will get back to you soon.', 'success');
+                this.reset();
+                grecaptcha.reset();
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            }, 1500);
         });
+    }
+
+    function showFormMessage(message, type) {
+        const existingMessage = document.querySelector('.form-message');
+        if (existingMessage) existingMessage.remove();
+
+        const messageDiv = document.createElement('div');
+        messageDiv.className = `form-message ${type}`;
+        messageDiv.textContent = message;
+        
+        submitBtn.parentNode.insertBefore(messageDiv, submitBtn);
+        
+        setTimeout(() => messageDiv.remove(), 5000);
     }
 
     // Scroll progress indicator
@@ -317,8 +347,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const chatMessages = document.getElementById('chatMessages');
     const agentSelect = document.getElementById('agentSelect');
 
-    // API endpoint - change this to your deployed backend URL
-    const API_BASE = 'http://localhost:8000';
+    // API endpoint - use environment variable or fallback
+    const API_BASE = window.location.hostname === 'localhost' 
+        ? 'http://localhost:8000' 
+        : 'https://your-backend-url.railway.app';
 
     // Toggle chat widget
     chatToggle.addEventListener('click', () => {

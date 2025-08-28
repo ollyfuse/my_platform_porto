@@ -1,0 +1,15 @@
+[build]
+  publish = "."
+  command = "echo 'Static site build complete'"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://your-backend-url.railway.app/api/:splat"
+  status = 200
+  force = true
+
+[context.production.environment]
+  API_BASE_URL = "https://your-backend-url.railway.app"
