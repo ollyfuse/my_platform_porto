@@ -2,7 +2,7 @@ services:
   - type: web
     name: ai-agents-backend
     env: python
-    buildCommand: cd my_assistant_agents && pip install -r requirements_minimal.txt
+    buildCommand: cd my_assistant_agents && pip install -r requirements.txt
     startCommand: cd my_assistant_agents && uvicorn main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: GOOGLE_API_KEY
