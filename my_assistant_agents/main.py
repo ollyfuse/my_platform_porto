@@ -53,7 +53,7 @@ async def chat_with_agent(request: ChatRequest):
 
 @app.get("/api/health")
 async def health_check():
-    return {"status": "healthy", "agents": ["chat", "guest", "planning", "project"]}
+    return {"status": "healthy", "agents": ["chat", "guest", "planning", "project"], "version": "2.0"}
 
 @app.get("/api/debug")
 async def debug_info():
