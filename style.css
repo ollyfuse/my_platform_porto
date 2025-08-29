@@ -1374,6 +1374,22 @@ section.fade-in.visible {
     border: 1px solid var(--border-color);
 }
 
+.message.bot strong {
+    color: var(--accent-primary);
+    font-weight: 600;
+}
+
+.message.bot .message-header {
+    font-weight: 600;
+    color: var(--accent-primary);
+    margin-bottom: 5px;
+}
+
+.message.bot .message-bullet {
+    margin: 3px 0;
+    padding-left: 10px;
+}
+
 .chat-input {
     display: flex;
     padding: 10px;

@@ -347,10 +347,18 @@ document.addEventListener('DOMContentLoaded', function() {
     const chatMessages = document.getElementById('chatMessages');
     const agentSelect = document.getElementById('agentSelect');
 
-    // API endpoint - using your Render backend
-    const API_BASE = window.location.hostname === 'localhost' 
+    // API endpoint - detect local development vs production
+    const isLocal = window.location.hostname === 'localhost' || 
+                   window.location.hostname === '127.0.0.1' || 
+                   window.location.hostname.includes('localhost');
+    
+    const API_BASE = isLocal 
         ? 'http://localhost:8000' 
         : 'https://olivier-ai-agents.onrender.com';
+    
+    console.log('API_BASE set to:', API_BASE);
+    console.log('Current hostname:', window.location.hostname);
+    console.log('Is local development:', isLocal);
 
     // Toggle chat widget
     chatToggle.addEventListener('click', () => {
@@ -378,6 +386,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // Show typing indicator
         const typingMsg = addMessage('Thinking...', 'bot');
         
+        console.log('Sending to API:', `${API_BASE}/api/chat`);
+        console.log('Request payload:', { message, agent_type: agentSelect.value });
+        
         try {
             const response = await fetch(`${API_BASE}/api/chat`, {
                 method: 'POST',
@@ -390,11 +401,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 })
             });
             
+            console.log('Response status:', response.status);
+            
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             
             const data = await response.json();
+            console.log('API Response:', data);
             
             // Remove typing indicator
             typingMsg.remove();
@@ -413,10 +427,27 @@ document.addEventListener('DOMContentLoaded', function() {
     function addMessage(text, sender) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `message ${sender}`;
-        messageDiv.textContent = text;
+        
+        if (sender === 'bot') {
+            // Format bot messages with better structure
+            messageDiv.innerHTML = formatBotMessage(text);
+        } else {
+            messageDiv.textContent = text;
+        }
+        
         chatMessages.appendChild(messageDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
         return messageDiv;
+    }
+    
+    // Format bot messages for better readability
+    function formatBotMessage(text) {
+        return text
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
+            .replace(/\n\n/g, '<br><br>') // Double line breaks
+            .replace(/\n/g, '<br>') // Single line breaks
+            .replace(/^(📄|📜|💼|🚀|💻|🎓|📞|📍|👨💻|👋)\s*(.*?)$/gm, '<div class="message-header">$1 $2</div>') // Headers with emojis
+            .replace(/^(•|-)\s*(.*?)$/gm, '<div class="message-bullet">• $2</div>'); // Bullet points
     }
 
     // Send message on button click

@@ -75,15 +75,24 @@ class ChatAgent:
         if "cv" in message_lower or "resume" in message_lower:
             if self.cv_text:
                 # Extract key sections from actual CV
-                cv_preview = self.cv_text[:1000].replace('\n\n', '\n')
-                return f"📄 From Olivier's CV:\n\n{cv_preview}...\n\n💡 This is extracted from his actual CV document. Ask for specific sections like 'experience' or 'education' for more details!"
-            return "📄 Olivier's Professional Background:\n\n🎯 Currently: Solvit Africa Backend Development Fellowship (2025)\n💼 Experience: 5+ years in backend development\n🎓 Education: Bachelor of Computer Science - University of Rwanda (2019-2024)\n🏆 Certifications: Quality Assurance, Python Development, DevOps\n\nSpecializes in Python, Django, and scalable backend solutions."
+                lines = self.cv_text.split('\n')
+                formatted_lines = []
+                for line in lines[:15]:  # First 15 lines for preview
+                    if line.strip():
+                        formatted_lines.append(line.strip())
+                
+                cv_preview = '\n'.join(formatted_lines)
+                return f"📄 **From Olivier's CV:**\n\n{cv_preview}\n\n💡 This is extracted from his actual CV document. Ask for specific sections like 'experience' or 'education' for more details!"
+            return "📄 **Olivier's Professional Background:**\n\n🎯 **Currently:** Solvit Africa Backend Development Fellowship (2025)\n💼 **Experience:** 5+ years in backend development\n🎓 **Education:** Bachelor of Computer Science - University of Rwanda (2019-2024)\n🏆 **Certifications:** Quality Assurance, Python Development, DevOps\n\nSpecializes in Python, Django, and scalable backend solutions."
         
         elif "cover letter" in message_lower or "letter" in message_lower:
             if self.cover_letter_text:
-                letter_preview = self.cover_letter_text[:800].replace('\n\n', '\n')
-                return f"📜 From Olivier's Cover Letter:\n\n{letter_preview}...\n\n💡 This shows his motivation and career aspirations directly from his cover letter document!"
-            return "📜 Olivier's Professional Summary:\n\nPassionate Backend Developer with 5+ years of experience crafting robust, scalable server-side solutions. Based in Kigali, Rwanda, he specializes in Python and Django development with expertise in building RESTful APIs, microservices, and cloud-native applications.\n\nHis journey spans diverse projects from fintech platforms to e-commerce solutions, with a focus on clean code architecture, database optimization, and security best practices."
+                # Extract first few paragraphs for better formatting
+                paragraphs = self.cover_letter_text.split('\n\n')
+                preview_paragraphs = [p.strip() for p in paragraphs[:3] if p.strip()]
+                letter_preview = '\n\n'.join(preview_paragraphs)
+                return f"📜 **From Olivier's Cover Letter:**\n\n{letter_preview}\n\n💡 This shows his motivation and career aspirations directly from his cover letter document!"
+            return "📜 **Olivier's Professional Summary:**\n\nPassionate Backend Developer with 5+ years of experience crafting robust, scalable server-side solutions. Based in Kigali, Rwanda, he specializes in Python and Django development with expertise in building RESTful APIs, microservices, and cloud-native applications.\n\nHis journey spans diverse projects from fintech platforms to e-commerce solutions, with a focus on clean code architecture, database optimization, and security best practices."
         
         elif "experience" in message_lower or "work" in message_lower:
             return "💼 Olivier's Professional Experience:\n\n🚀 **Current (2025)**: Solvit Africa Backend Development Fellowship\n   • Leading backend development for fintech and e-commerce platforms\n   • Architecting microservices solutions\n   • Implementing CI/CD pipelines\n   • Mentoring junior developers\n   • Reduced API response time by 40% through optimization\n\n🔧 **Previous**: Quality Assurance & Development\n   • Built 15+ REST APIs serving 10,000+ daily users\n   • Integrated payment gateways and third-party services\n   • Optimized database queries reducing load time by 60%"
@@ -123,6 +132,6 @@ class ChatAgent:
             return f"👨‍💻 About {self.portfolio_info['name']}:\n\nA passionate **{self.portfolio_info['title']}** with **{self.portfolio_info['experience']}**, based in **{self.portfolio_info['location']}**.\n\n🎯 **Mission**: Crafting scalable backend solutions and robust APIs that power modern applications.\n\n💡 **Passion**: Clean code architecture, database optimization, and implementing security best practices.\n\n🌍 **Impact**: Working on diverse projects from fintech platforms to wellness applications, always focused on solving real-world problems through technology.\n\n🎵 **Personal**: When not coding, enjoys music and creating cultural connections through musical experiences."
         
         else:
-            return f"👋 Hi! I'm {self.portfolio_info['name']}'s AI assistant. I can help you learn about:\n\n📄 **CV & Resume** - Professional background & experience\n📜 **Cover Letter** - Career motivation & goals\n🎯 **Experience** - Work history & achievements\n💻 **Technical Skills** - Technologies & expertise\n🚀 **Projects** - Portfolio & case studies\n🎓 **Education** - Academic background & certifications\n📞 **Contact** - How to reach Olivier\n\n**{self.portfolio_info['name']}** is a **{self.portfolio_info['title']}** with **{self.portfolio_info['experience']}**. What would you like to know?"
+            return f"👋 **Hi! I'm {self.portfolio_info['name']}'s AI assistant.**\n\nI can help you learn about:\n\n• **CV & Resume** - Professional background & experience\n• **Cover Letter** - Career motivation & goals\n• **Experience** - Work history & achievements\n• **Technical Skills** - Technologies & expertise\n• **Projects** - Portfolio & case studies\n• **Education** - Academic background & certifications\n• **Contact** - How to reach Olivier\n\n**{self.portfolio_info['name']}** is a **{self.portfolio_info['title']}** with **{self.portfolio_info['experience']}**.\n\nWhat would you like to know?"
 
 root_agent = ChatAgent()
