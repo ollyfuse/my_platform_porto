@@ -347,10 +347,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const chatMessages = document.getElementById('chatMessages');
     const agentSelect = document.getElementById('agentSelect');
 
-    // API endpoint - replace with your Render URL
+    // API endpoint - using your Render backend
     const API_BASE = window.location.hostname === 'localhost' 
         ? 'http://localhost:8000' 
-        : 'https://your-render-app-name.onrender.com';
+        : 'https://olivier-ai-agents.onrender.com';
 
     // Toggle chat widget
     chatToggle.addEventListener('click', () => {
