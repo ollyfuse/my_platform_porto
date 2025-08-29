@@ -17,6 +17,12 @@ class ChatAgent:
         self.portfolio_text = self._load_html_text("index.html")
         self.cv_text = self._load_docx_text("olivier_bigirimana_Master_CV.docx")
         self.cover_letter_text = self._load_docx_text("Olivier_BIGIRIMANA_cover_letter.docx")
+        
+        # Debug info for production
+        print(f"Root folder: {self.root_folder}")
+        print(f"CV text loaded: {len(self.cv_text)} chars")
+        print(f"Cover letter loaded: {len(self.cover_letter_text)} chars")
+        print(f"Portfolio text loaded: {len(self.portfolio_text)} chars")
         self.portfolio_info = {
             "name": "Olivier Bigirimana",
             "title": "Backend Developer & Problem Solver",
@@ -73,7 +79,7 @@ class ChatAgent:
         message_lower = message.lower()
         
         if "cv" in message_lower or "resume" in message_lower:
-            if self.cv_text:
+            if self.cv_text and len(self.cv_text) > 100:
                 # Extract key sections from actual CV
                 lines = self.cv_text.split('\n')
                 formatted_lines = []
