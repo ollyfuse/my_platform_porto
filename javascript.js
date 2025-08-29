@@ -347,10 +347,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const chatMessages = document.getElementById('chatMessages');
     const agentSelect = document.getElementById('agentSelect');
 
-    // API endpoint - use Netlify functions in production
+    // API endpoint - replace with your Render URL
     const API_BASE = window.location.hostname === 'localhost' 
         ? 'http://localhost:8000' 
-        : '/.netlify/functions';
+        : 'https://your-render-app-name.onrender.com';
 
     // Toggle chat widget
     chatToggle.addEventListener('click', () => {

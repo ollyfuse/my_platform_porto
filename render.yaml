@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: ai-agents-backend
+    env: python
+    buildCommand: cd my_assistant_agents && pip install -r requirements_minimal.txt
+    startCommand: cd my_assistant_agents && uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: GOOGLE_GENAI_USE_VERTEXAI
+        value: FALSE
