@@ -23,6 +23,19 @@ class ChatAgent:
         print(f"CV text loaded: {len(self.cv_text)} chars")
         print(f"Cover letter loaded: {len(self.cover_letter_text)} chars")
         print(f"Portfolio text loaded: {len(self.portfolio_text)} chars")
+        # Embedded CV content as fallback
+        self.embedded_cv = """Olivier BIGIRIMANA
+📍 Rwanda | 📧 cyotero26@gmail.com | 📱 +250 787595645 | 🌐 Portfolio | 🔗 LinkedIn
+
+Professional Summary
+Enthusiastic and versatile tech professional with a Bachelor's degree in Computer Science and experience spanning web development, networking, quality assurance, and creative digital content production. Skilled in building full-stack web applications with Django, PostgreSQL, and Tailwind CSS, integrating APIs, and delivering high-quality, production-ready code.
+
+Core Competencies
+Web Development: HTML, CSS, JavaScript, Tailwind CSS, Django, PostgreSQL, REST API design
+Software Engineering: Python (OOP), Git/GitHub, Agile practices, testing with Django test framework
+Networking: Setup, configuration, troubleshooting, and maintenance
+Quality Assurance: Manual testing, automated testing, bug tracking, test case development"""
+        
         self.portfolio_info = {
             "name": "Olivier Bigirimana",
             "title": "Backend Developer & Problem Solver",
@@ -79,16 +92,19 @@ class ChatAgent:
         message_lower = message.lower()
         
         if "cv" in message_lower or "resume" in message_lower:
-            if self.cv_text and len(self.cv_text) > 100:
-                # Extract key sections from actual CV
-                lines = self.cv_text.split('\n')
+            # Use actual CV file if available, otherwise use embedded content
+            cv_content = self.cv_text if self.cv_text and len(self.cv_text) > 100 else self.embedded_cv
+            
+            if cv_content:
+                lines = cv_content.split('\n')
                 formatted_lines = []
-                for line in lines[:15]:  # First 15 lines for preview
+                for line in lines[:12]:  # First 12 lines for preview
                     if line.strip():
                         formatted_lines.append(line.strip())
                 
                 cv_preview = '\n'.join(formatted_lines)
                 return f"📄 **From Olivier's CV:**\n\n{cv_preview}\n\n💡 This is extracted from his actual CV document. Ask for specific sections like 'experience' or 'education' for more details!"
+            
             return "📄 **Olivier's Professional Background:**\n\n🎯 **Currently:** Solvit Africa Backend Development Fellowship (2025)\n💼 **Experience:** 5+ years in backend development\n🎓 **Education:** Bachelor of Computer Science - University of Rwanda (2019-2024)\n🏆 **Certifications:** Quality Assurance, Python Development, DevOps\n\nSpecializes in Python, Django, and scalable backend solutions."
         
         elif "cover letter" in message_lower or "letter" in message_lower:
