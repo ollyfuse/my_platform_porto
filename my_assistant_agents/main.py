@@ -55,5 +55,54 @@ async def chat_with_agent(request: ChatRequest):
 async def health_check():
     return {"status": "healthy", "agents": ["chat", "guest", "planning", "project"]}
 
+@app.get("/api/debug")
+async def debug_info():
+    from pathlib import Path
+    root_dir = Path(__file__).resolve().parent.parent
+    
+    # Check files
+    cv_exists = (root_dir / "olivier_bigirimana_Master_CV.docx").exists()
+    cover_exists = (root_dir / "Olivier_BIGIRIMANA_cover_letter.docx").exists()
+    
+    # Check imports
+    try:
+        from bs4 import BeautifulSoup
+        bs4_available = True
+    except ImportError:
+        bs4_available = False
+    
+    try:
+        from docx import Document
+        docx_available = True
+    except ImportError:
+        docx_available = False
+    
+    # Test agent
+    try:
+        agent_working = True
+        cv_length = len(chat_agent.cv_text)
+        cover_length = len(chat_agent.cover_letter_text)
+    except Exception as e:
+        agent_working = False
+        cv_length = 0
+        cover_length = 0
+    
+    return {
+        "root_directory": str(root_dir),
+        "files": {
+            "cv_exists": cv_exists,
+            "cover_letter_exists": cover_exists
+        },
+        "dependencies": {
+            "beautifulsoup4": bs4_available,
+            "python_docx": docx_available
+        },
+        "agent": {
+            "working": agent_working,
+            "cv_text_length": cv_length,
+            "cover_letter_length": cover_length
+        }
+    }
+
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
