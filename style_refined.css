@@ -871,6 +871,13 @@ section {
     box-shadow: var(--shadow-xl);
 }
 
+/* Position reCAPTCHA v3 badge above chat button */
+.grecaptcha-badge {
+    bottom: 90px !important;
+    right: 24px !important;
+    z-index: 998 !important;
+}
+
 .chat-widget {
     position: fixed;
     bottom: 90px;
