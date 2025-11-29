@@ -38,15 +38,15 @@ Quality Assurance: Manual testing, automated testing, bug tracking, test case de
         
         self.portfolio_info = {
             "name": "Olivier Bigirimana",
-            "title": "Backend Developer & Problem Solver",
+            "title": "Senior Backend Developer & API Architect",
             "location": "Kigali, Rwanda",
             "experience": "5+ years in backend development",
-            "skills": ["Python", "Django", "PostgreSQL", "REST APIs", "Celery", "Redis"],
+            "skills": ["Python", "Django", "PostgreSQL", "REST APIs", "Docker", "Celery", "Redis", "AWS"],
             "projects": [
-                "BBIS Banking Platform - Comprehensive banking and financial services platform",
-                "Ikanisa Church Management - Full-featured church management system", 
-                "Human Justice API - RESTful API for human rights organization",
-                "Good Life Wellness Platform - Comprehensive lifestyle and wellness platform"
+                "ProcureToPay - Enterprise Procure-to-Pay system with multi-level approval workflows",
+                "FuseTalk Rwanda - Video & text chat platform for cultural connection and tourism",
+                "UmugandaTech - Community volunteer platform for national development",
+                "DocuFind - Secure document recovery platform with privacy protection"
             ],
             "education": "Bachelor of Computer Science - University of Rwanda (2019-2024)",
             "contact": {
@@ -124,7 +124,7 @@ Quality Assurance: Manual testing, automated testing, bug tracking, test case de
             return f"🚀 Olivier's Technical Expertise:\n\n💻 **Core Technologies**: {skills}\n\n🏗️ **Specializations**:\n• Backend Architecture & Microservices\n• RESTful API Design & Development\n• Database Design & Optimization\n• Cloud-Native Applications\n• Security Best Practices\n• Performance Optimization\n\nFocuses on building efficient, secure, and scalable solutions that power modern applications."
         
         elif "projects" in message_lower or "portfolio" in message_lower:
-            return "💼 Olivier's Featured Projects:\n\n🏦 **BBIS Banking Platform**\n   • Comprehensive banking and financial services platform\n   • Secure transaction processing & real-time account management\n   • Built with Django REST Framework, PostgreSQL, Redis\n\n⛪ **Ikanisa Church Management**\n   • Full-featured church management system\n   • Member registration, event scheduling, donation tracking\n   • Mobile-responsive design with automated reporting\n\n⚖️ **Human Justice API**\n   • RESTful API for human rights organization\n   • Case management & document tracking\n   • JWT authentication & role-based access control\n\n🌟 **Good Life Wellness Platform**\n   • Comprehensive lifestyle and wellness platform\n   • Real-time notifications & social engagement tools\n   • WebSocket integration for live features"
+            return "💼 **Olivier's Featured Projects:**\n\n🏢 **ProcureToPay** (Enterprise)\n   • Multi-level approval workflow system\n   • JWT authentication & role-based permissions\n   • Docker containerization & comprehensive testing\n   • Live: https://procuretopays.netlify.app/\n\n💬 **FuseTalk Rwanda** (Social Platform)\n   • Random video & text chat for cultural connection\n   • WebRTC integration for real-time communication\n   • Tourism discovery and cultural exchange\n   • Built with Django, WebSocket, Redis\n\n🤝 **UmugandaTech** (Community)\n   • Volunteer platform for national development\n   • Project organization and participation tracking\n   • Twilio API integration for notifications\n   • Live: https://umugandatech.netlify.app\n\n🔍 **DocuFind** (Security)\n   • Secure document recovery platform\n   • Privacy-focused matching algorithms\n   • Lost document reporting and recovery system"
         
         elif "contact" in message_lower or "reach" in message_lower:
             contact = self.portfolio_info['contact']

@@ -3,7 +3,7 @@
 <head>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     
@@ -19,7 +19,7 @@
     <meta property="og:url" content="https://olivier-bigirimana.netlify.app">
     <title>Olivier Bigirimana - Senior Backend Developer | Python & Django Expert</title>
     <link rel="icon" href="./resources/fuse.JPEG" type="image/jpeg">
-    <link rel="stylesheet" href="style_refined.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Scroll Progress Indicator -->
@@ -35,7 +35,8 @@
             <a href="#about" class="nav-link">About</a>
             <a href="#projects" class="nav-link">Projects</a>
             <a href="#skills" class="nav-link">Skills</a>
-            <a href="#resume" class="nav-link">Experience</a>
+            <a href="#resume" class="nav-link">Resume</a>
+            <a href="#reflection" class="nav-link">Journal</a>
             <a href="#contact" class="nav-link">Contact</a>
         </div>
         <div class="nav-controls">
@@ -96,19 +97,15 @@
                     </div>
                     <div class="about-text">
                         <p>
-                            My career began in IT Support, where I learned the value of reliability and user trust. 
-                            Transitioning into Quality Assurance deepened my focus on security, performance, and clean code. 
-                            These experiences led me into backend development, where I now design and deploy production-ready 
-                            applications with Django, PostgreSQL, Celery, Redis, and Docker.
+                            “My career began in IT Support, where I learned the value of reliability and user trust. Transitioning into Quality Assurance deepened my focus on security, performance, and clean code. These experiences led me into backend development, where I now design and deploy production-ready applications with Django, PostgreSQL, Celery, Redis, and Docker. I’m driven by continuous learning and the challenge of solving complex problems to create technology that truly helps people.”
                         </p>
                         <p>
-                            I specialize in building scalable backend architectures for enterprise applications, with expertise 
-                            in API design, database optimization, and cloud deployment. My projects range from procurement 
-                            systems handling complex approval workflows to social platforms connecting communities across Rwanda.
+                            My journey in software development has led me to work on diverse projects ranging from
+                            fintech platforms to e-commerce solutions. I'm particularly passionate about clean code
+                            architecture, database optimization, and implementing security best practices.
                         </p>
                         <p>
-                            I'm driven by continuous learning and the challenge of solving complex problems to create 
-                            technology that truly helps people and businesses thrive.
+                            When I'm not coding, I enjoy Musics, blending creativity and creating culture connections through Musics. 
                         </p>
                         <div class="about-buttons">
                             <a href="https://drive.google.com/file/d/1VSLLB9oXsmLV22oYLQ6k_RR01pCiinRK/view?usp=share_link" target="_blank" class="btn btn-primary">Download CV</a>
@@ -119,114 +116,16 @@
             </div>
         </section>
 
-        <!-- Projects Section -->
-        <section class="projects" id="projects">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Featured Projects</h2>
-                    <div class="line"></div>
-                </div>
-                <p class="section-description">
-                    Enterprise-grade applications showcasing expertise in backend development, API design, and scalable solutions.
-                </p>
-                <div class="project-filters">
-                    <button class="filter-btn active" data-filter="all">All Projects</button>
-                    <button class="filter-btn" data-filter="enterprise">Enterprise</button>
-                    <button class="filter-btn" data-filter="social">Social</button>
-                    <button class="filter-btn" data-filter="community">Community</button>
-                </div>
-                <div class="projects-grid">
-                    <div class="project-item featured" data-category="enterprise">
-                        <div class="project-image">
-                            <img src="./resources/projects/procuretopay.png" alt="ProcureToPay Platform" />
-                        </div>
-                        <div class="project-info">
-                            <h3>ProcureToPay</h3>
-                            <p>Enterprise Procure-to-Pay system with multi-level approval workflows, JWT authentication, and Docker containerization. Features role-based permissions, automatic PO generation, and comprehensive test coverage.</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">Django REST</span>
-                                <span class="tech-tag">PostgreSQL</span>
-                                <span class="tech-tag">Docker</span>
-                                <span class="tech-tag">JWT Auth</span>
-                                <span class="tech-tag">Celery</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/ollyfuse" target="_blank" title="View Code"><i class="fab fa-github"></i></a>
-                                <a href="https://procuretopays.netlify.app/" target="_blank" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-item featured" data-category="social">
-                        <div class="project-image">
-                            <img src="./resources/projects/fusetalk.png" alt="FuseTalk Platform" />
-                        </div>
-                        <div class="project-info">
-                            <h3>FuseTalk Rwanda</h3>
-                            <p>Rwanda-focused random video & text chat platform for cultural connection and tourism discovery. Connects locals and visitors through real-time communication, promoting cultural exchange and tourism.</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">Django</span>
-                                <span class="tech-tag">WebRTC</span>
-                                <span class="tech-tag">WebSocket</span>
-                                <span class="tech-tag">Redis</span>
-                                <span class="tech-tag">REST API</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/ollyfuse" target="_blank" title="View Code"><i class="fab fa-github"></i></a>
-                                <a href="#" target="_blank" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-item" data-category="community">
-                        <div class="project-image">
-                            <img src="./resources/projects/umugandatech.png" alt="UmugandaTech Platform" />
-                        </div>
-                        <div class="project-info">
-                            <h3>UmugandaTech</h3>
-                            <p>Community volunteer platform connecting dedicated volunteers with impactful projects across Rwanda, streamlining organization and enhancing participation for national development.</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">Django</span>
-                                <span class="tech-tag">Celery</span>
-                                <span class="tech-tag">Twilio API</span>
-                                <span class="tech-tag">PostgreSQL</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/ollyfuse" target="_blank" title="View Code"><i class="fab fa-github"></i></a>
-                                <a href="https://umugandatech.netlify.app" target="_blank" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="project-item" data-category="community">
-                        <div class="project-image">
-                            <img src="./resources/projects/lostfound.png" alt="DocuFind Platform" />
-                        </div>
-                        <div class="project-info">
-                            <h3>DocuFind</h3>
-                            <p>Secure document recovery platform where users can report lost documents and help others find theirs. Privacy-focused design with secure matching algorithms.</p>
-                            <div class="project-tech">
-                                <span class="tech-tag">Django</span>
-                                <span class="tech-tag">REST API</span>
-                                <span class="tech-tag">Redis</span>
-                                <span class="tech-tag">Security</span>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://github.com/ollyfuse" target="_blank" title="View Code"><i class="fab fa-github"></i></a>
-                                <a href="#" target="_blank" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- Skills Section -->
         <section class="skills" id="skills">
             <div class="container">
                 <div class="section-title">
-                    <h2>Technical Expertise</h2>
+                    <h2>My Skills</h2>
                     <div class="line"></div>
                 </div>
                 <p class="skills-intro">
-                    Specialized in backend technologies and frameworks for building enterprise-grade applications.
+                    My technical expertise spans across multiple backend technologies and frameworks.
+                    I focus on building efficient, secure, and scalable solutions that meet modern business needs.
                 </p>
                 <div class="skills-grid">
                     <div class="skill-item">
@@ -267,20 +166,87 @@
                     </div>
                     <div class="skill-item">
                         <div class="skill-header">
-                            <h3>Docker</h3>
-                            <span class="skill-percentage">78%</span>
+                            <h3>Celery</h3>
+                            <span class="skill-percentage">80%</span>
                         </div>
                         <div class="skill-bar">
-                            <div class="skill-progress" style="width: 78%"></div>
+                            <div class="skill-progress" style="width: 80%"></div>
                         </div>
                     </div>
-                    <div class="skill-item">
+                    <!-- <div class="skill-item">
                         <div class="skill-header">
                             <h3>AWS</h3>
                             <span class="skill-percentage">75%</span>
                         </div>
                         <div class="skill-bar">
                             <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div> -->
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <h3>Redis</h3>
+                            <span class="skill-percentage">82%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 82%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section class="projects" id="projects">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Featured Projects</h2>
+                    <div class="line"></div>
+                </div>
+                <p class="section-description">
+                    Here are some of the projects I've built that showcase my expertise in backend development,
+                    API design, and full-stack solutions.
+                </p>
+                <div class="project-filters">
+                    <button class="filter-btn active" data-filter="all">All Projects</button>
+                    <button class="filter-btn" data-filter="web">Web Applications</button>
+                    <button class="filter-btn" data-filter="api">APIs</button>
+                </div>
+                <div class="projects-grid">
+                    <div class="project-item" data-category="web">
+                        <div class="project-image">
+                            <img src="./resources/projects/umugandatech.png" alt="umugandatech platform" />
+                        </div>
+                        <div class="project-info">
+                            <h3>UmugandaTech</h3>
+                            <p>The UmugandaTech connects dedicated volunteers with impactful community projects across Rwanda, streamlining organization, enhancing participation, and celebrating collective effort for national development.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Django</span>
+                                <span class="tech-tag">Celery & Redis</span>
+                                <span class="tech-tag">Twilio</span>
+                                <span class="tech-tag">REST API</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/ollyfuse" target="_blank" title="View Code"><i class="fab fa-github"></i></a>
+                                <a href="https://umugandatech.netlify.app" target="_blank" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-item" data-category="web">
+                        <div class="project-image">
+                            <img src="./resources/projects/lostfound.png" alt="Good Life Platform" />
+                        </div>
+                        <div class="project-info">
+                            <h3>DocuFind</h3>
+                            <p>A secure platform where you can report lost documents and help others find theirs. Your privacy is protected while making recovery possible.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Django</span>
+                                <span class="tech-tag">REST API</span>
+                                <span class="tech-tag">Celery & Redis</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/ollyfuse" target="_blank" title="View Code"><i class="fab fa-github"></i></a>
+                                <a href="#" target="_blank" title="Live Demo"><i class="fas fa-external-link-alt"></i></a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -301,17 +267,31 @@
                             <div class="timeline-item">
                                 <div class="timeline-date">2025 - Present</div>
                                 <div class="timeline-content">
-                                    <h4>Backend Developer</h4>
-                                    <h5>Solvit Africa Fellowship</h5>
-                                    <p>Leading backend development for enterprise applications including procurement systems, social platforms, and community management tools.</p>
+                                    <h4>Solvit Africa Backend Development Fellowship</h4>
+                                    <h5>Job Board APi</h5>
+                                    <p>Lead backend development for fintech and e-commerce platforms. Architected
+                                    microservices solutions, implemented CI/CD pipelines, and mentored junior developers.</p>
                                     <ul>
-                                        <li>Built ProcureToPay system with multi-level approval workflows</li>
-                                        <li>Developed FuseTalk platform for cultural connection and tourism</li>
-                                        <li>Implemented Docker containerization and CI/CD pipelines</li>
-                                        <li>Achieved 40% improvement in API response times</li>
+                                        <li>Reduced API response time by 40% through optimization</li>
+                                        <li>Led team of 4 developers on multiple projects</li>
+                                        <li>Implemented automated testing increasing code coverage to 95%</li>
                                     </ul>
                                 </div>
                             </div>
+                            <!-- <div class="timeline-item">
+                                <div class="timeline-date">2020 - 2022</div>
+                                <div class="timeline-content">
+                                    <h4>Quality Assurance</h4>
+                                    <h5>Afritect </h5>
+                                    <p>Developed and maintained Django applications for various clients including
+                                    government agencies and private organizations.</p>
+                                    <ul>
+                                        <li>Built 15+ REST APIs serving 10,000+ daily users</li>
+                                        <li>Integrated payment gateways and third-party services</li>
+                                        <li>Optimized database queries reducing load time by 60%</li>
+                                    </ul>
+                                </div>
+                            </div> -->
                         </div>
                     </div>
                     <div class="education">
@@ -328,16 +308,42 @@
                             <div class="timeline-item">
                                 <div class="timeline-date">2025</div>
                                 <div class="timeline-content">
-                                    <h4>Professional Certifications</h4>
+                                    <h4>Certifications & Training </h4>
                                     <ul>
-                                        <li>Quality Assurance Certification – Digital Talent Program</li>
-                                        <li>Intermediate Python for Developers</li>
-                                        <li>DevOps Continuous Feedback Implementation</li>
-                                        <li>Software Testing & Automation Fundamentals</li>
-                                    </ul>
+                                    <li>Quality Assurance Certification – Digital Talent Program, 2025</li>
+                                    <li>certificate-Intermediate Python for Developers</li>
+                                    <li>certificate-DevOps Continuous Feedback-Implementing Continuous Feedback</li>
+                                    <li>Trained in software testing, bug tracking, automation basics, and development lifecycle.</li>
+                                </ul>
+
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reflection Journal Section -->
+        <section class="reflection" id="reflection">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Reflection Journal</h2>
+                    <div class="line"></div>
+                </div>
+                <p class="section-description">
+                    A space for thoughts, learnings, and personal growth in my development journey.
+                </p>
+                <div class="journal-container">
+                    <div class="journal-entries" id="journalEntries">
+                        <div class="journal-entry">
+                            <div class="entry-date">Today</div>
+                            <div class="entry-content">Welcome to my reflection space. Share your thoughts or read mine...</div>
+                        </div>
+                    </div>
+                    <div class="journal-input">
+                        <textarea id="journalText" placeholder="What's on your mind today?"></textarea>
+                        <button id="addReflection" class="btn btn-primary">Add Reflection</button>
                     </div>
                 </div>
             </div>
@@ -351,8 +357,8 @@
                     <div class="line"></div>
                 </div>
                 <p class="section-description">
-                    Ready to build something amazing? I'm available for backend development projects,
-                    API architecture consulting, and enterprise application development.
+                    Ready to bring your backend project to life? I'm always interested in discussing
+                    new opportunities and challenging projects. Let's connect!
                 </p>
                 <div class="contact-content">
                     <div class="contact-info">
