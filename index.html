@@ -444,9 +444,20 @@
     </div>
     
     <!-- Chat Toggle Button -->
-    <button class="chat-toggle" id="chatToggle" style="position: fixed; bottom: 24px; right: 24px; width: 56px; height: 56px; background: #2563eb; border: none; border-radius: 50%; color: white; font-size: 1.4rem; cursor: pointer; z-index: 1000; display: flex; align-items: center; justify-content: center;">
+    <button class="chat-toggle" id="chatToggle" onclick="toggleChat()" style="position: fixed; bottom: 24px; right: 24px; width: 56px; height: 56px; background: #2563eb; border: none; border-radius: 50%; color: white; font-size: 1.4rem; cursor: pointer; z-index: 1000; display: flex; align-items: center; justify-content: center;">
         <i class="fas fa-robot"></i>
     </button>
+
+    <script>
+    function toggleChat() {
+        console.log('Toggle chat called');
+        const chatWidget = document.getElementById('chatWidget');
+        if (chatWidget) {
+            chatWidget.classList.toggle('active');
+            console.log('Chat widget toggled, active:', chatWidget.classList.contains('active'));
+        }
+    }
+    </script>
 
     <script src="./javascript.js"></script>
 </body>

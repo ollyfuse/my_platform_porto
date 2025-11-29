@@ -377,16 +377,20 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Is local development:', isLocal);
 
     // Toggle chat widget
-    if (chatToggle) {
+    if (chatToggle && chatWidget) {
+        console.log('Chat toggle button found, adding event listener');
         chatToggle.addEventListener('click', () => {
+            console.log('Chat button clicked!');
             chatWidget.classList.toggle('active');
             if (chatWidget.classList.contains('active')) {
-                chatInput.focus();
-                if (chatMessages.children.length === 0) {
+                if (chatInput) chatInput.focus();
+                if (chatMessages && chatMessages.children.length === 0) {
                     addMessage('Hello! I\'m Olivier\'s AI assistant. How can I help you today?', 'bot');
                 }
             }
         });
+    } else {
+        console.log('Chat elements not found:', { chatToggle, chatWidget });
     }
 
     if (chatClose) {
