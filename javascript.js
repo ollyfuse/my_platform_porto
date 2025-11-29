@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const submitBtn = document.getElementById('submitBtn');
     
     if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
 
             // Get form data
@@ -184,10 +184,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
-            // reCAPTCHA validation
-            const recaptchaResponse = grecaptcha.getResponse();
-            if (!recaptchaResponse) {
-                showFormMessage('Please complete the reCAPTCHA verification', 'error');
+            // reCAPTCHA v3 validation
+            try {
+                const recaptchaToken = await grecaptcha.execute('6LffMBwsAAAAACU1QMMMyZfhbR3rfl2wZZgzm3R-', {action: 'submit'});
+                console.log('reCAPTCHA token generated:', recaptchaToken);
+            } catch (error) {
+                console.log('reCAPTCHA error:', error);
+                showFormMessage('reCAPTCHA verification failed. Please try again.', 'error');
                 return;
             }
 
@@ -199,7 +202,6 @@ document.addEventListener('DOMContentLoaded', function() {
             setTimeout(() => {
                 showFormMessage('Thank you for your message! I will get back to you soon.', 'success');
                 this.reset();
-                grecaptcha.reset();
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Send Message';
             }, 1500);
