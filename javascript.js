@@ -1,6 +1,6 @@
 // Navigation functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // Theme toggle functionality
+    // Enhanced Theme toggle functionality
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = document.getElementById('theme-icon');
     const body = document.body;
@@ -17,19 +17,33 @@ document.addEventListener('DOMContentLoaded', function() {
             const currentTheme = body.getAttribute('data-theme');
             const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
+            // Add transition class for smooth theme change
+            body.style.transition = 'all 0.3s ease';
+            
             body.setAttribute('data-theme', newTheme);
             localStorage.setItem('theme', newTheme);
             updateThemeIcon(newTheme);
+            
+            // Remove transition after animation completes
+            setTimeout(() => {
+                body.style.transition = '';
+            }, 300);
         });
     }
 
     function updateThemeIcon(theme) {
         if (themeIcon) {
-            if (theme === 'dark') {
-                themeIcon.className = 'fas fa-sun';
-            } else {
-                themeIcon.className = 'fas fa-moon';
-            }
+            // Add rotation animation to icon
+            themeIcon.style.transform = 'rotate(180deg)';
+            
+            setTimeout(() => {
+                if (theme === 'dark') {
+                    themeIcon.className = 'fas fa-sun';
+                } else {
+                    themeIcon.className = 'fas fa-moon';
+                }
+                themeIcon.style.transform = 'rotate(0deg)';
+            }, 150);
         }
     }
     // Mobile navigation toggle
@@ -266,25 +280,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Navbar background on scroll
-    window.addEventListener('scroll', () => {
-        const navbar = document.querySelector('.navbar');
-        const currentTheme = body.getAttribute('data-theme') || 'light';
-
-        if (window.scrollY > 100) {
-            if (currentTheme === 'dark') {
-                navbar.style.background = 'rgba(31, 41, 55, 0.98)';
-            } else {
-                navbar.style.background = 'rgba(52, 53, 57, 0.98)';
-            }
-        } else {
-            if (currentTheme === 'dark') {
-                navbar.style.background = 'rgba(31, 41, 55, 0.95)';
-            } else {
-                navbar.style.background = 'rgba(52, 53, 57, 0.95)';
-            }
-        }
-    });
+    // Navbar background on scroll - removed manual styling to let CSS handle it
+    // The refined CSS already handles navbar background with backdrop-filter
 
     // Animate skill bars when in view
     const observerOptions = {
@@ -334,6 +331,25 @@ document.addEventListener('DOMContentLoaded', function() {
     sections.forEach(section => {
         sectionObserver.observe(section);
     });
+
+    // System theme detection
+    function detectSystemTheme() {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            return 'dark';
+        }
+        return 'light';
+    }
+
+    // Listen for system theme changes
+    if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                const newTheme = e.matches ? 'dark' : 'light';
+                body.setAttribute('data-theme', newTheme);
+                updateThemeIcon(newTheme);
+            }
+        });
+    }
 
     // Initialize scroll progress on page load
     updateScrollProgress();
