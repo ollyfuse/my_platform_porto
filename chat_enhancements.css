@@ -1,0 +1,95 @@
+/* Auto-greeting notification styles */
+.chat-notification {
+    position: fixed;
+    bottom: 95px;
+    right: 90px;
+    background: linear-gradient(135deg, var(--primary-blue), var(--secondary-teal));
+    color: white;
+    padding: 12px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.3);
+    z-index: 998;
+    animation: slideInNotification 0.5s ease, fadeOutNotification 0.5s ease 4.5s forwards;
+    max-width: 200px;
+    text-align: center;
+}
+
+.chat-notification::before {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 20px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid var(--primary-blue);
+}
+
+@keyframes slideInNotification {
+    from {
+        opacity: 0;
+        transform: translateX(100px) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+    }
+}
+
+@keyframes fadeOutNotification {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(37, 99, 235, 0.7);
+    }
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(37, 99, 235, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(37, 99, 235, 0);
+    }
+}
+
+/* Enhanced message formatting */
+.message.bot .message-header {
+    font-weight: 600;
+    color: var(--primary-blue);
+    margin-bottom: 8px;
+    font-size: 0.95rem;
+}
+
+.message.bot .message-bullet {
+    margin: 4px 0;
+    padding-left: 12px;
+    color: var(--text-secondary);
+}
+
+/* Mobile responsiveness for notification */
+@media (max-width: 768px) {
+    .chat-notification {
+        right: 20px;
+        bottom: 85px;
+        max-width: 180px;
+        font-size: 0.85rem;
+        padding: 10px 14px;
+    }
+    
+    .chat-notification::before {
+        right: 15px;
+    }
+}
