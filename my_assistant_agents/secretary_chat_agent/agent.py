@@ -38,10 +38,10 @@ Quality Assurance: Manual testing, automated testing, bug tracking, test case de
         
         self.portfolio_info = {
             "name": "Olivier Bigirimana",
-            "title": "Senior Backend Developer & API Architect",
+            "title": "Full-Stack Developer & Software Engineer",
             "location": "Kigali, Rwanda",
-            "experience": "5+ years in backend development",
-            "skills": ["Python", "Django", "PostgreSQL", "REST APIs", "Docker", "Celery", "Redis", "AWS"],
+            "experience": "5+ years in full-stack development",
+            "skills": ["Python", "Django", "JavaScript", "React", "PostgreSQL", "REST APIs", "Docker", "AWS"],
             "projects": [
                 "ProcureToPay - Enterprise Procure-to-Pay system with multi-level approval workflows",
                 "FuseTalk Rwanda - Video & text chat platform for cultural connection and tourism",
@@ -121,7 +121,7 @@ Quality Assurance: Manual testing, automated testing, bug tracking, test case de
         
         elif "skills" in message_lower or "technology" in message_lower or "tech" in message_lower:
             skills = ", ".join(self.portfolio_info['skills'])
-            return f"🚀 Olivier's Technical Expertise:\n\n💻 **Core Technologies**: {skills}\n\n🏗️ **Specializations**:\n• Backend Architecture & Microservices\n• RESTful API Design & Development\n• Database Design & Optimization\n• Cloud-Native Applications\n• Security Best Practices\n• Performance Optimization\n\nFocuses on building efficient, secure, and scalable solutions that power modern applications."
+            return f"🚀 Olivier's Technical Expertise:\n\n💻 **Core Technologies**: {skills}\n\n🏗️ **Full-Stack Specializations**:\n• Frontend Development (React, JavaScript, HTML/CSS)\n• Backend Architecture & Microservices\n• RESTful API Design & Development\n• Database Design & Optimization\n• Cloud-Native Applications\n• DevOps & Containerization\n\nBuilds complete web applications from responsive frontends to scalable backend systems."
         
         elif "projects" in message_lower or "portfolio" in message_lower:
             return "💼 **Olivier's Featured Projects:**\n\n🏢 **ProcureToPay** (Enterprise)\n   • Multi-level approval workflow system\n   • JWT authentication & role-based permissions\n   • Docker containerization & comprehensive testing\n   • Live: https://procuretopays.netlify.app/\n\n💬 **FuseTalk Rwanda** (Social Platform)\n   • Random video & text chat for cultural connection\n   • WebRTC integration for real-time communication\n   • Tourism discovery and cultural exchange\n   • Built with Django, WebSocket, Redis\n\n🤝 **UmugandaTech** (Community)\n   • Volunteer platform for national development\n   • Project organization and participation tracking\n   • Twilio API integration for notifications\n   • Live: https://umugandatech.netlify.app\n\n🔍 **DocuFind** (Security)\n   • Secure document recovery platform\n   • Privacy-focused matching algorithms\n   • Lost document reporting and recovery system"
