@@ -878,6 +878,24 @@ section {
     z-index: 998 !important;
 }
 
+/* Mobile responsive reCAPTCHA */
+@media (max-width: 768px) {
+    .grecaptcha-badge {
+        transform: scale(0.7) !important;
+        transform-origin: bottom right !important;
+        bottom: 85px !important;
+        right: 16px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .grecaptcha-badge {
+        transform: scale(0.6) !important;
+        bottom: 80px !important;
+        right: 12px !important;
+    }
+}
+
 .chat-widget {
     position: fixed;
     bottom: 90px;
