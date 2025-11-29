@@ -91,40 +91,39 @@ Quality Assurance: Manual testing, automated testing, bug tracking, test case de
     async def run_async(self, message: str) -> str:
         message_lower = message.lower()
         
-        if "cv" in message_lower or "resume" in message_lower:
-            # Use actual CV file if available, otherwise use embedded content
+        # Enhanced keyword matching for better accuracy
+        if any(word in message_lower for word in ["cv", "resume", "curriculum"]):
             cv_content = self.cv_text if self.cv_text and len(self.cv_text) > 100 else self.embedded_cv
             
             if cv_content:
                 lines = cv_content.split('\n')
                 formatted_lines = []
-                for line in lines[:12]:  # First 12 lines for preview
+                for line in lines[:12]:
                     if line.strip():
                         formatted_lines.append(line.strip())
                 
                 cv_preview = '\n'.join(formatted_lines)
-                return f"📄 **From Olivier's CV:**\n\n{cv_preview}\n\n💡 This is extracted from his actual CV document. Ask for specific sections like 'experience' or 'education' for more details!"
+                return f"📄 **Olivier's CV Summary:**\n\n{cv_preview}\n\n💡 *Want specific details? Ask about 'experience', 'education', or 'skills'*"
             
-            return "📄 **Olivier's Professional Background:**\n\n🎯 **Currently:** Solvit Africa Backend Development Fellowship (2025)\n💼 **Experience:** 5+ years in backend development\n🎓 **Education:** Bachelor of Computer Science - University of Rwanda (2019-2024)\n🏆 **Certifications:** Quality Assurance, Python Development, DevOps\n\nSpecializes in Python, Django, and scalable backend solutions."
+            return "📄 **Professional Summary:**\n\n🚀 **Current Role:** Full-Stack Developer at Solvit Africa Fellowship\n💻 **Experience:** 5+ years in full-stack development\n🎓 **Education:** Bachelor of Computer Science - University of Rwanda\n🏆 **Expertise:** Python, Django, JavaScript, React, PostgreSQL\n\n*Building complete web applications from frontend to backend*"
         
-        elif "cover letter" in message_lower or "letter" in message_lower:
+        elif any(word in message_lower for word in ["cover letter", "letter", "motivation", "why hire"]):
             if self.cover_letter_text:
-                # Extract first few paragraphs for better formatting
                 paragraphs = self.cover_letter_text.split('\n\n')
                 preview_paragraphs = [p.strip() for p in paragraphs[:3] if p.strip()]
                 letter_preview = '\n\n'.join(preview_paragraphs)
-                return f"📜 **From Olivier's Cover Letter:**\n\n{letter_preview}\n\n💡 This shows his motivation and career aspirations directly from his cover letter document!"
-            return "📜 **Olivier's Professional Summary:**\n\nPassionate Backend Developer with 5+ years of experience crafting robust, scalable server-side solutions. Based in Kigali, Rwanda, he specializes in Python and Django development with expertise in building RESTful APIs, microservices, and cloud-native applications.\n\nHis journey spans diverse projects from fintech platforms to e-commerce solutions, with a focus on clean code architecture, database optimization, and security best practices."
+                return f"📜 **Career Motivation:**\n\n{letter_preview}\n\n💡 *This reflects his passion for technology and problem-solving*"
+            return "📜 **Why Choose Olivier:**\n\n🎯 **Passion:** Building technology that solves real-world problems\n🚀 **Growth:** From IT Support → QA → Full-Stack Developer\n🌍 **Impact:** Creating solutions for fintech, social platforms, and enterprise\n📚 **Learning:** Continuously adapting to new technologies and best practices\n\n*Driven by the challenge of creating meaningful software solutions*"
         
-        elif "experience" in message_lower or "work" in message_lower:
-            return "💼 Olivier's Professional Experience:\n\n🚀 **Current (2025)**: Solvit Africa Backend Development Fellowship\n   • Leading backend development for fintech and e-commerce platforms\n   • Architecting microservices solutions\n   • Implementing CI/CD pipelines\n   • Mentoring junior developers\n   • Reduced API response time by 40% through optimization\n\n🔧 **Previous**: Quality Assurance & Development\n   • Built 15+ REST APIs serving 10,000+ daily users\n   • Integrated payment gateways and third-party services\n   • Optimized database queries reducing load time by 60%"
+        elif any(word in message_lower for word in ["experience", "work", "job", "career", "employment"]):
+            return "💼 **Professional Journey:**\n\n🚀 **Current (2025):** Full-Stack Developer - Solvit Africa Fellowship\n   • Built ProcureToPay system with React frontend & Django backend\n   • Developed FuseTalk platform with real-time WebSocket chat\n   • Implemented Docker containerization & CI/CD pipelines\n   • Achieved 40% API performance improvement\n\n🔍 **Previous Roles:**\n   • **Quality Assurance:** Testing, automation, security focus\n   • **IT Support:** System reliability, user experience\n   • **Freelance Projects:** 15+ REST APIs, payment integrations\n\n*Each role built the foundation for full-stack expertise*"
         
-        elif "skills" in message_lower or "technology" in message_lower or "tech" in message_lower:
+        elif any(word in message_lower for word in ["skills", "technology", "tech", "stack", "programming", "languages"]):
             skills = ", ".join(self.portfolio_info['skills'])
-            return f"🚀 Olivier's Technical Expertise:\n\n💻 **Core Technologies**: {skills}\n\n🏗️ **Full-Stack Specializations**:\n• Frontend Development (React, JavaScript, HTML/CSS)\n• Backend Architecture & Microservices\n• RESTful API Design & Development\n• Database Design & Optimization\n• Cloud-Native Applications\n• DevOps & Containerization\n\nBuilds complete web applications from responsive frontends to scalable backend systems."
+            return f"🚀 **Technical Stack:**\n\n🌐 **Frontend:** JavaScript (85%), React (80%), HTML/CSS, Responsive Design\n🔧 **Backend:** Python (90%), Django (88%), REST APIs (92%)\n📋 **Database:** PostgreSQL (85%), Redis, Database Optimization\n☁️ **DevOps:** Docker (78%), AWS (75%), CI/CD Pipelines\n🔄 **Tools:** Git, Celery, WebSocket, Testing Frameworks\n\n🎯 **Specialization:** Building complete web applications from concept to deployment\n\n*Full-stack expertise with focus on scalable, maintainable solutions*"
         
-        elif "projects" in message_lower or "portfolio" in message_lower:
-            return "💼 **Olivier's Featured Projects:**\n\n🏢 **ProcureToPay** (Enterprise)\n   • Multi-level approval workflow system\n   • JWT authentication & role-based permissions\n   • Docker containerization & comprehensive testing\n   • Live: https://procuretopays.netlify.app/\n\n💬 **FuseTalk Rwanda** (Social Platform)\n   • Random video & text chat for cultural connection\n   • WebRTC integration for real-time communication\n   • Tourism discovery and cultural exchange\n   • Built with Django, WebSocket, Redis\n\n🤝 **UmugandaTech** (Community)\n   • Volunteer platform for national development\n   • Project organization and participation tracking\n   • Twilio API integration for notifications\n   • Live: https://umugandatech.netlify.app\n\n🔍 **DocuFind** (Security)\n   • Secure document recovery platform\n   • Privacy-focused matching algorithms\n   • Lost document reporting and recovery system"
+        elif any(word in message_lower for word in ["projects", "portfolio", "work", "built", "developed"]):
+            return "💼 **Featured Projects:**\n\n🏆 **ProcureToPay** - Enterprise Procurement System\n   • **Frontend:** React with modern UI/UX\n   • **Backend:** Django REST API with multi-level approvals\n   • **Features:** JWT auth, role-based permissions, Docker deployment\n   • **Live Demo:** https://procuretopays.netlify.app/\n\n🌍 **FuseTalk Rwanda** - Cultural Connection Platform\n   • **Frontend:** Real-time chat interface\n   • **Backend:** WebSocket + Django for live communication\n   • **Purpose:** Connecting locals with tourists for cultural exchange\n\n🤝 **UmugandaTech** - Community Volunteer Platform\n   • **Full-Stack:** Complete volunteer management system\n   • **Integration:** Twilio API for SMS notifications\n   • **Impact:** Supporting Rwanda's national development\n   • **Live:** https://umugandatech.netlify.app\n\n*Each project demonstrates end-to-end development capabilities*"
         
         elif "contact" in message_lower or "reach" in message_lower:
             contact = self.portfolio_info['contact']
@@ -154,6 +153,6 @@ Quality Assurance: Manual testing, automated testing, bug tracking, test case de
             return f"👨‍💻 About {self.portfolio_info['name']}:\n\nA passionate **{self.portfolio_info['title']}** with **{self.portfolio_info['experience']}**, based in **{self.portfolio_info['location']}**.\n\n🎯 **Mission**: Crafting scalable backend solutions and robust APIs that power modern applications.\n\n💡 **Passion**: Clean code architecture, database optimization, and implementing security best practices.\n\n🌍 **Impact**: Working on diverse projects from fintech platforms to wellness applications, always focused on solving real-world problems through technology.\n\n🎵 **Personal**: When not coding, enjoys music and creating cultural connections through musical experiences."
         
         else:
-            return f"👋 **Hi! I'm {self.portfolio_info['name']}'s AI assistant.**\n\nI can help you learn about:\n\n• **CV & Resume** - Professional background & experience\n• **Cover Letter** - Career motivation & goals\n• **Experience** - Work history & achievements\n• **Technical Skills** - Technologies & expertise\n• **Projects** - Portfolio & case studies\n• **Education** - Academic background & certifications\n• **Contact** - How to reach Olivier\n\n**{self.portfolio_info['name']}** is a **{self.portfolio_info['title']}** with **{self.portfolio_info['experience']}**.\n\nWhat would you like to know?"
+            return f"👋 **Hello! I'm {self.portfolio_info['name']}'s AI Assistant**\n\n💬 **Quick Questions You Can Ask:**\n\n📄 *"Tell me about your CV"* - Professional background\n🚀 *"What's your experience?"* - Work history & achievements\n💻 *"What are your technical skills?"* - Full-stack expertise\n🎯 *"Show me your projects"* - Portfolio & live demos\n🎓 *"What's your education?"* - Academic background\n📞 *"How can I contact you?"* - Get in touch info\n💡 *"Why should I hire you?"* - Career motivation\n\n**{self.portfolio_info['name']}** is a **{self.portfolio_info['title']}** with **{self.portfolio_info['experience']}**.\n\n*Just ask naturally - I understand context!*"
 
 root_agent = ChatAgent()
