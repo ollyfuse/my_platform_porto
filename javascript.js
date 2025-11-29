@@ -377,19 +377,23 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('Is local development:', isLocal);
 
     // Toggle chat widget
-    chatToggle.addEventListener('click', () => {
-        chatWidget.classList.toggle('active');
-        if (chatWidget.classList.contains('active')) {
-            chatInput.focus();
-            if (chatMessages.children.length === 0) {
-                addMessage('Hello! I\'m Olivier\'s AI assistant. How can I help you today?', 'bot');
+    if (chatToggle) {
+        chatToggle.addEventListener('click', () => {
+            chatWidget.classList.toggle('active');
+            if (chatWidget.classList.contains('active')) {
+                chatInput.focus();
+                if (chatMessages.children.length === 0) {
+                    addMessage('Hello! I\'m Olivier\'s AI assistant. How can I help you today?', 'bot');
+                }
             }
-        }
-    });
+        });
+    }
 
-    chatClose.addEventListener('click', () => {
-        chatWidget.classList.remove('active');
-    });
+    if (chatClose) {
+        chatClose.addEventListener('click', () => {
+            chatWidget.classList.remove('active');
+        });
+    }
 
     // Send message function
     async function sendMessage() {
@@ -467,20 +471,26 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Send message on button click
-    chatSend.addEventListener('click', sendMessage);
+    if (chatSend) {
+        chatSend.addEventListener('click', sendMessage);
+    }
 
     // Send message on Enter key
-    chatInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            sendMessage();
-        }
-    });
+    if (chatInput) {
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    }
 
     // Agent selection change
-    agentSelect.addEventListener('change', () => {
-        const agentName = agentSelect.options[agentSelect.selectedIndex].text;
-        addMessage(`Switched to ${agentName}. How can I help you?`, 'bot');
-    });
+    if (agentSelect) {
+        agentSelect.addEventListener('change', () => {
+            const agentName = agentSelect.options[agentSelect.selectedIndex].text;
+            addMessage(`Switched to ${agentName}. How can I help you?`, 'bot');
+        });
+    }
 
     // Reflection Journal Functionality
     const journalText = document.getElementById('journalText');
@@ -488,14 +498,21 @@ document.addEventListener('DOMContentLoaded', function() {
     const journalEntries = document.getElementById('journalEntries');
 
     // Load saved reflections from localStorage
-    loadReflections();
+    if (journalEntries) {
+        loadReflections();
+    }
 
-    addReflectionBtn.addEventListener('click', addReflection);
-    journalText.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter' && e.ctrlKey) {
-            addReflection();
-        }
-    });
+    if (addReflectionBtn) {
+        addReflectionBtn.addEventListener('click', addReflection);
+    }
+    
+    if (journalText) {
+        journalText.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                addReflection();
+            }
+        });
+    }
 
     function addReflection() {
         const text = journalText.value.trim();
